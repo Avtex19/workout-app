@@ -4,6 +4,7 @@ import AuthorizationPage from "./components/authorization/AuthorizationPage.tsx"
 
 
 function App() {
+
     return (
         <>
           <BrowserRouter>
