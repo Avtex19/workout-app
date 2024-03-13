@@ -60,7 +60,7 @@
     }
 
     .workout-plan-form{
-        border: 1px solid black;
+
         border-radius: 5px;
         padding: 10px;
         display: flex;
@@ -68,14 +68,65 @@
         gap: 10px;
 
 
-        & input {
+        & .form-input {
             border: none;
             background-color: inherit;
+            height: 30px;
+            outline: 1px solid grey;
+            border-radius: 5px;
+            font-size: 1rem;
         }
 
-        & div {
+        & .form-option {
             outline: 1px solid black;
-            padding: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 6px;
+
+            & > p {
+                color: grey;
+                font-weight: bold;
+            }
         }
+    }
+}
+
+.dropdown-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .dropDown{
+        background-color: whitesmoke;
+        border: 1px solid black;
+        height: fit-content;
+        width: 150px;
+        margin-top: 30px;
+        border-radius: 5px;
+        position: absolute;
+
+    }
+
+    .dropdown-option{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        gap: 5px;
+        padding: 10px;
+
+    }
+
+    & button{
+        width: 150px;
+        background-color: white;
+        border:none;
+        outline: 1px solid black;
+        border-radius: 4px;
+        padding: 5px;
+        cursor: pointer;
     }
 }
