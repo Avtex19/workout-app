@@ -79,7 +79,7 @@ class PlanViewSet(viewsets.ModelViewSet):
         if user_id:
             return Plan.objects.filter(user_id=user_id)
         else:
-            return Plan.objects.none() #get reqeust works
+            return Plan.objects.none()
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
