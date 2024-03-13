@@ -4,6 +4,7 @@ import CreateWorkout from "./components/CreateWorkout.tsx";
 import HomeCSS from './home.module.css';
 import {useJwt} from "react-jwt";
 import refreshToken from "../../api/refreshToken.ts";
+import RandomQuotes from "./components/RandomQuotes.tsx";
 
 export function Home() {
     const takenToken = localStorage.getItem("access");
@@ -29,7 +30,7 @@ export function Home() {
         <Routes>
 
             <Route path={'/create-workout'} element={<CreateWorkout />}></Route>
-
+            <Route path={'/'} element={<RandomQuotes />}></Route>
         </Routes>
 
     </main>

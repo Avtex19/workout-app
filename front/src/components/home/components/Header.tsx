@@ -11,10 +11,13 @@ export function Header(){
         
         
         <div className={HomeC['navigation']}>
+            <Link to={'/'}><button>Home</button></Link>
             <Link to={'/create-workout'}><button>Create Plan</button></Link>
             <Link to={'/my-workouts'}><button>My Workouts</button></Link>
-            <button>Log out</button>
-
+            <button onClick={() => {
+                localStorage.clear();
+                window.location.href = "/authorization"}}
+                >Log out</button>
         </div>
     </section>
 }
