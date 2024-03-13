@@ -53,33 +53,11 @@ class ShowWorkout(generics.ListAPIView):
 
 
 class UserProfileAPIView(APIView):
-    def get(self, request):
-        profiles = UserProfile.objects.all()
-        serializer = UserProfileSerializer(profiles, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         serializer = UserProfileSerializer(data=request.data)
-        print(request.data)
+        print(serializer.is_valid())
+        print(serializer.errors)
         if serializer.is_valid():
-            try:
-
-                # Create the user profile using the provided username
-                profile_data = {
-                    'user': request.data['user'],  # Use the provided username
-                    'height': request.data.get('height'),
-                    'weight': request.data.get('weight'),
-                    'password': request.data.get('password')
-                }
-                print(profile_data)
-                print(request.data)
-                profile_serializer = UserProfileSerializer(data=profile_data)
-                if profile_serializer.is_valid():
-                    profile_serializer.save()
-                    return Response(profile_serializer.data, status=status.HTTP_201_CREATED)
-                else:
-
-                    return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            except Exception as e:
-                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
