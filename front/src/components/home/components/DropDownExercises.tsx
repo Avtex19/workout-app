@@ -1,10 +1,10 @@
 import HomeC from './homeC.module.css';
 import React, {useState} from "react";
-import {MuscleGroup} from "./CreateWorkout.tsx";
+import {ExerciseGroup} from "./CreateWorkout.tsx";
 
 
-export function DropDown({name, toSelect, setChosen}: {
-    name: string, toSelect: MuscleGroup[],
+export function DropDownExercises({name, toSelect, setChosen}: {
+    name: string, toSelect: ExerciseGroup[],
     setChosen: React.Dispatch<React.SetStateAction<number[]>>
 }){
 
@@ -18,12 +18,12 @@ export function DropDown({name, toSelect, setChosen}: {
         >{name}</button>
         {showMenu && <section className={HomeC['dropDown']}>
             {toSelect.map((m) => {
-                return <div key={m.workout_type_id} className={HomeC['dropdown-option']}><input
+                return <div key={m.id} className={HomeC['dropdown-option']}><input
                     onChange={(e) => {
                         if(e.target.checked){
-                            setChosen((prev) => [...prev, m.workout_type_id])
+                            setChosen((prev) => [...prev, m.id])
                         }else{
-                            setChosen((prev) => [...prev.filter((o) => m.workout_type_id === o)])
+                            setChosen((prev) => [...prev.filter((o) => m.id === o)])
                         }
                     }}
                     type={"checkbox"}
@@ -32,6 +32,8 @@ export function DropDown({name, toSelect, setChosen}: {
             })}
 
         </section>}
-        
+
     </div>
 }
+
+export default DropDownExercises;

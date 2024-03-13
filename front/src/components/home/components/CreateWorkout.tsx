@@ -2,19 +2,47 @@ import HomeC from './homeC.module.css';
 import {DropDown} from "./DropDown.tsx";
 import {useState, useEffect} from "react";
 import getMuscleGroups from "../../../api/getMuscleGroups.ts";
+import DropDownExercises from "./DropDownExercises.tsx";
+import getSpecificWorkouts from "../../../api/getSpecificWorkouts.ts";
 export type MuscleGroup = {
-workout_type_id:
-            number,
-        workout_name: string
-    }
+    workout_type_id:
+        number,
+    workout_name: string
+}
+
+export type ExerciseGroup = {
+    id: number,
+    workout_category: MuscleGroup,
+    workout_name: string,
+    workout_sets_n: number,
+    workout_set_duration_m: number,
+    description: string
+}
 export function CreateWorkout(){
 
     const [availableMuscleGroups, setAvailableMuscleGroups] = useState<MuscleGroup[]>([]);
 
 
-    const [chosenMuscleGroups, setChosenMuscleGroups] = useState<MuscleGroup[]>([])
-    const [exercises, setExercises] = useState<string[]>([])
+    const [chosenMuscleGroups, setChosenMuscleGroups] = useState<number[]>([])
+    const [chosenExerciseIDs, setChosenExerciseIDs] = useState<number[]>([])
+    const [availableExercises, setAvailableExercises] = useState<ExerciseGroup[]>([])
 
+
+    useEffect(() =>{
+        const requestSpecificWorkout = async () =>{
+            let data:ExerciseGroup[] = []
+            for(let i =0; i < chosenMuscleGroups.length; i++){
+                const request = await getSpecificWorkouts(chosenMuscleGroups[i])
+                const returnedData = request.data;
+                data = [...data, ...returnedData]
+            }
+
+            setAvailableExercises(data)
+
+        }
+        requestSpecificWorkout()
+
+    }, [chosenMuscleGroups.length])
         useEffect(() =>{
 
             const fetchAvailableMuscleGroups = async () => {
@@ -42,14 +70,20 @@ export function CreateWorkout(){
               <div className={HomeC['form-option']}>
 
                    <p>Muscle Groups</p>
-                <DropDown name={"Choose target muscles"} toSelect={availableMuscleGroups}/>
+                <DropDown name={"Choose target muscles"} toSelect={availableMuscleGroups}
+                setChosen={setChosenMuscleGroups}
+                />
             </div>
 
-              <div className={HomeC['form-option']}>
-                   <p>Exercises</p>
-               <DropDown name={"Choose exercises"} toSelect={['Bench Press', 'Dumbbel Rows', 'Biceps']}/>
+            {availableExercises.length > 0 && <div className={HomeC['form-option']}>
+                <p>Exercises</p>
+                <DropDownExercises name={"Choose exercises"}
+                                   setChosen={setChosenExerciseIDs}
+                                   toSelect={availableExercises}/>
 
-            </div>
+            </div>}
+
+
         </form>
 
     </section>
