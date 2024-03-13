@@ -7,14 +7,14 @@ import {UserRegFormData} from "../authTypes.ts";
 import PasswordIcon from '../icons/password-icon-auth.svg';
 import ConfirmPasswordIcon from '../icons/confirm-password-icon-auth.svg';
 import {registerUser} from "../../../api/registerUser.ts";
+import useToken from "../../../useToken.tsx";
 
 
 export function Signup({
                            changeAuthState
                        }: { changeAuthState: React.Dispatch<React.SetStateAction<"LOGIN" | "SIGNUP">> }) {
     document.title = "Workout Pal / SIGN UP"
-
-
+    useToken()
     const [formData, setFormData] = useState<UserRegFormData>({
         username: '',
         weight: 70,
@@ -31,8 +31,14 @@ export function Signup({
         if(formData.password.trim() === formData.confirmedPassword.trim()){
 
             const request = await registerUser(formData);
-            const data = request.data;
-            console.log(data)
+
+            if(request.status >= 200 && request.status < 300){
+                alert("Registered Successfully");
+                setTimeout(() => {
+                        changeAuthState('LOGIN')
+                    }
+                 , 2000)
+            }
         }
     }
 

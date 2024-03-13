@@ -4,11 +4,9 @@ import {Login} from "./components/Login.tsx";
 
 export function AuthorizationPage(){
 
-    const [currentAuthorizaitonState, setCurrentAuthorizationState] = useState<"LOGIN" | "SIGNUP">("SIGNUP")
+    const [currentAuthorizationState, setCurrentAuthorizationState] = useState<"LOGIN" | "SIGNUP">("SIGNUP")
 
-    console.log(currentAuthorizaitonState)
-
-    return currentAuthorizaitonState === 'SIGNUP' ? <Signup changeAuthState={setCurrentAuthorizationState} /> : <Login changeAuthState={setCurrentAuthorizationState}/>
+    return currentAuthorizationState === 'SIGNUP' ? <Signup changeAuthState={setCurrentAuthorizationState} /> : <Login changeAuthState={setCurrentAuthorizationState}/>
 }
 
 export default AuthorizationPage;
