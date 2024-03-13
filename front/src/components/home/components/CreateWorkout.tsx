@@ -24,8 +24,8 @@ export function CreateWorkout(){
 
     const [availableMuscleGroups, setAvailableMuscleGroups] = useState<MuscleGroup[]>([]);
     const {decodedToken} = useJwt(String(localStorage.getItem("access_token")))
-    const [chosenMuscleGroups, setChosenMuscleGroups] = useState<number[]>([])
-    const [chosenExerciseIDs, setChosenExerciseIDs] = useState<number[]>([])
+    const [chosenMuscleGroups, setChosenMuscleGroups] = useState<MuscleGroup[]>([])
+    const [chosenExerciseIDs, setChosenExerciseIDs] = useState<ExerciseGroup[]>([])
     const [availableExercises, setAvailableExercises] = useState<ExerciseGroup[]>([])
 
 
@@ -33,7 +33,7 @@ export function CreateWorkout(){
         const requestSpecificWorkout = async () =>{
             let data:ExerciseGroup[] = []
             for(let i =0; i < chosenMuscleGroups.length; i++){
-                const request = await getSpecificWorkouts(chosenMuscleGroups[i])
+                const request = await getSpecificWorkouts(chosenMuscleGroups[i].workout_type_id)
                 const returnedData = request.data;
                 data = [...data, ...returnedData]
             }
@@ -59,7 +59,7 @@ export function CreateWorkout(){
         e.preventDefault()
         const requestPlanSubmission = await addWorkoutPlan(
             {
-                user: decodedToken.user_id,
+                user: Number(decodedToken?.user_id),
                 exercises: chosenExerciseIDs,
                 muscle_groups: chosenMuscleGroups
             }
