@@ -44,7 +44,7 @@ export function Signup({
             <p>Already signed up? <span onClick={() => changeAuthState('LOGIN')}>click here to Log in</span></p>
         </div>
 
-        <form method={"POST"} onSubmit={onSubmitAuthorize}>
+        <form className={AuthCSS['auth-form']} method={"POST"} onSubmit={onSubmitAuthorize}>
             {next ? <>
 
                 <div>

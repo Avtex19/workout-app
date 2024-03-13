@@ -26,7 +26,7 @@ export function Login({
             <p>not signed up? <span onClick={() => changeAuthState('SIGNUP')}>click here to register</span></p>
         </div>
 
-        <form>
+        <form className={AuthCSS['auth-form']}>
 
 
             <div>
