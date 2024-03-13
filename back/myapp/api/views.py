@@ -37,7 +37,8 @@ def getRoutes(request):
         '/api/show-workout-category',
         '/api/show-workout/<int:workout_type_id>',
         '/api/create/user',
-        '/api/plan'
+        '/api/plan',
+        '/plan/<int:user_id>/',
 
     ]
 
@@ -78,4 +79,18 @@ class PlanViewSet(viewsets.ModelViewSet):
         if user_id:
             return Plan.objects.filter(user_id=user_id)
         else:
-            return Plan.objects.none()
+            return Plan.objects.none() #get reqeust works
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        print(request.data)
+        print(serializer.is_valid())
+        if serializer.is_valid():
+            user_id = self.kwargs.get('user_id')
+            serializer.save(user_id=user_id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # unfortunately dont have enought time(due to unifersity stuff) for fixing post request and create specified
+        # workout plan, but the way is clear and we can see that
