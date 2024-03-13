@@ -53,6 +53,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: center;
 
     & span {
         color: black;
@@ -92,6 +93,34 @@
             }
         }
     }
+
+    .form-option-btn-wrap{
+        border-radius: 6px;
+        background-color: inherit;
+        border: 1px solid black;
+    }
+
+    .form-option-btn-wrap:hover{
+        background-color: cornflowerblue;
+        color: white;
+    }
+    .create-workout-plan-btn{
+
+
+        width: 100%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: inherit;
+        height: 100%;
+  border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 300ms linear;
+    }
+
+
 }
 
 .dropdown-wrapper{
@@ -132,4 +161,6 @@
         padding: 5px;
         cursor: pointer;
     }
+
+
 }

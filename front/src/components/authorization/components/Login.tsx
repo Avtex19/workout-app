@@ -8,7 +8,7 @@ import useToken from "../../../useToken.tsx";
 export function Login({
                           changeAuthState
                       }: { changeAuthState: React.Dispatch<React.SetStateAction<"LOGIN" | "SIGNUP">> }) {
-  useToken()
+
 
     const [formData, setFormData] = useState<{username: string, password: string}>({
         username: '',
@@ -16,10 +16,9 @@ export function Login({
 
     })
 
-
     document.title = "Workout Pal / LOG IN"
 
-
+        useToken()
 
     const onSubmit = async (e:FormEvent) => {
         e.preventDefault()
@@ -29,8 +28,10 @@ export function Login({
         if(request.status >= 200 && request.status < 300){
              const data = request.data;
              localStorage.setItem("access_token", data.access);
-             localStorage.setitem("refresh_token", data.refresh)
+             localStorage.setItem("refresh_token", data.refresh)
             alert("Log in successful");
+             window.location.href="/"
+
         }
         else{
             alert("There was a problem during authorization, check your credentials and try again!")

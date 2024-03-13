@@ -1,9 +1,11 @@
 import HomeC from './homeC.module.css';
 import {DropDown} from "./DropDown.tsx";
-import {useState, useEffect} from "react";
+import {useState, useEffect, FormEvent} from "react";
 import getMuscleGroups from "../../../api/getMuscleGroups.ts";
 import DropDownExercises from "./DropDownExercises.tsx";
 import getSpecificWorkouts from "../../../api/getSpecificWorkouts.ts";
+import addWorkoutPlan from "../../../api/addWorkoutPlan.ts";
+import {useJwt} from "react-jwt";
 export type MuscleGroup = {
     workout_type_id:
         number,
@@ -21,8 +23,7 @@ export type ExerciseGroup = {
 export function CreateWorkout(){
 
     const [availableMuscleGroups, setAvailableMuscleGroups] = useState<MuscleGroup[]>([]);
-
-
+    const {decodedToken} = useJwt(String(localStorage.getItem("access_token")))
     const [chosenMuscleGroups, setChosenMuscleGroups] = useState<number[]>([])
     const [chosenExerciseIDs, setChosenExerciseIDs] = useState<number[]>([])
     const [availableExercises, setAvailableExercises] = useState<ExerciseGroup[]>([])
@@ -54,9 +55,25 @@ export function CreateWorkout(){
         fetchAvailableMuscleGroups()
         }, [])
 
+    const submitPlan = async (e:FormEvent) => {
+        e.preventDefault()
+        const requestPlanSubmission = await addWorkoutPlan(
+            {
+                user: decodedToken.user_id,
+                exercises: chosenExerciseIDs,
+                muscle_groups: chosenMuscleGroups
+            }
+        )
+        const data = requestPlanSubmission.data;
+        console.log(data)
+
+
+    }
     return <section className={HomeC['create-plan-wrapper']}>
         <h1>DESIGN <span>YOUR OWN</span> PROGRAM</h1>
-        <form className={HomeC['workout-plan-form']}>
+        <form className={HomeC['workout-plan-form']}
+        onSubmit={(e) => submitPlan(e)}
+        >
             <div className={HomeC['form-option']}>
                 <p>Plan Name</p>
                 <input type={"text"}
@@ -87,7 +104,7 @@ export function CreateWorkout(){
 
             </div>}
 
-
+            {chosenExerciseIDs.length > 0 && <div className={HomeC['form-option-btn-wrap']}><button className={HomeC['create-workout-plan-btn']} type={"submit"}>Create Workout Plan</button></div>}
         </form>
 
     </section>

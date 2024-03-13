@@ -14,7 +14,7 @@ export function Signup({
                            changeAuthState
                        }: { changeAuthState: React.Dispatch<React.SetStateAction<"LOGIN" | "SIGNUP">> }) {
     document.title = "Workout Pal / SIGN UP"
-    useToken()
+
     const [formData, setFormData] = useState<UserRegFormData>({
         username: '',
         weight: 70,
@@ -23,6 +23,7 @@ export function Signup({
         confirmedPassword: ''
     })
 
+    useToken()
     const [next, showNext] = useState<boolean>(false)
 
 

@@ -1,8 +1,13 @@
 import HomeC from './homeC.module.css';
 import {Link} from "react-router-dom";
+import parseJWT from "../../parseJWT.ts";
+import {useJwt} from "react-jwt";
 
 export function Header(){
-    const username = "USERNAME"
+
+    const {decodedToken} = useJwt(String(localStorage.getItem("access_token")))
+
+    const username = decodedToken?.username
 
 
     return <section className={HomeC['header-wrapper']}>

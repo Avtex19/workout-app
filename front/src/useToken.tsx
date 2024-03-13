@@ -4,7 +4,7 @@ import refreshToken from "./api/refreshToken.ts";
 import {useJwt} from "react-jwt";
 
 export function useToken(){
-  const takenToken = localStorage.getItem("access");
+  const takenToken = localStorage.getItem("access_token");
     const navigator = useNavigate();
     const {isExpired} = useJwt(String(takenToken))
 
