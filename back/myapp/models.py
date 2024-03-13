@@ -29,4 +29,9 @@ class UserProfile(models.Model):
     weight = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     password = models.TextField(max_length=255, null=False, blank=False, default="default")
 
+class Plan(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    muscle_groups = models.ManyToManyField(Workout_category, related_name='plans')
+    exercises = models.ManyToManyField(Workout, related_name='plans')
+
 

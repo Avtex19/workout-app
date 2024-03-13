@@ -16,6 +16,15 @@ class WorkoutSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PlanSerializer(serializers.ModelSerializer):
+    muscle_groups = WorkoutCategorySerializer(many=True)
+    exercises = WorkoutSerializer(many=True)
+
+    class Meta:
+        model = Plan
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
