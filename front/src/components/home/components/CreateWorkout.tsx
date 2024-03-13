@@ -70,14 +70,18 @@ export function CreateWorkout(){
               <div className={HomeC['form-option']}>
 
                    <p>Muscle Groups</p>
-                <DropDown name={"Choose target muscles"} toSelect={availableMuscleGroups}
+                <DropDown
+                    chosen={chosenMuscleGroups}
+                    name={"Choose target muscles"} toSelect={availableMuscleGroups}
                 setChosen={setChosenMuscleGroups}
                 />
             </div>
 
             {availableExercises.length > 0 && <div className={HomeC['form-option']}>
                 <p>Exercises</p>
-                <DropDownExercises name={"Choose exercises"}
+                <DropDownExercises
+                    chosenExercises={chosenExerciseIDs}
+                    name={"Choose exercises"}
                                    setChosen={setChosenExerciseIDs}
                                    toSelect={availableExercises}/>
 

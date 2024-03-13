@@ -3,8 +3,9 @@ import React, {useState} from "react";
 import {ExerciseGroup} from "./CreateWorkout.tsx";
 
 
-export function DropDownExercises({name, toSelect, setChosen}: {
+export function DropDownExercises({name, toSelect, setChosen, chosenExercises}: {
     name: string, toSelect: ExerciseGroup[],
+    chosenExercises: number[],
     setChosen: React.Dispatch<React.SetStateAction<number[]>>
 }){
 
@@ -23,15 +24,16 @@ export function DropDownExercises({name, toSelect, setChosen}: {
                         if(e.target.checked){
                             setChosen((prev) => [...prev, m.id])
                         }else{
-                            setChosen((prev) => [...prev.filter((o) => m.id === o)])
+                            setChosen((prev) => [...prev.filter((o) => m.id !== o)])
                         }
                     }}
                     type={"checkbox"}
-
+                            checked={chosenExercises.includes(m.id)}
                 /> <p>{m.workout_name}</p></div>
             })}
 
-        </section>}
+        </section>
+        }
 
     </div>
 }

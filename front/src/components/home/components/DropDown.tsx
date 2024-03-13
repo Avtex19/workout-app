@@ -3,8 +3,9 @@ import React, {useState} from "react";
 import {MuscleGroup} from "./CreateWorkout.tsx";
 
 
-export function DropDown({name, toSelect, setChosen}: {
+export function DropDown({name, toSelect, setChosen, chosen}: {
     name: string, toSelect: MuscleGroup[],
+    chosen: number[],
     setChosen: React.Dispatch<React.SetStateAction<number[]>>
 }){
 
@@ -23,9 +24,11 @@ export function DropDown({name, toSelect, setChosen}: {
                         if(e.target.checked){
                             setChosen((prev) => [...prev, m.workout_type_id])
                         }else{
-                            setChosen((prev) => [...prev.filter((o) => m.workout_type_id === o)])
+                            setChosen((prev) => [...prev.filter((o) => m.workout_type_id !== o)])
                         }
                     }}
+
+                    checked={chosen.includes(m.workout_type_id)}
                     type={"checkbox"}
 
                 /> <p>{m.workout_name}</p></div>
