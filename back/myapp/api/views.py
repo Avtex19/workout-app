@@ -60,6 +60,7 @@ class UserProfileAPIView(APIView):
 
     def post(self, request):
         serializer = UserProfileSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             try:
 
@@ -70,6 +71,8 @@ class UserProfileAPIView(APIView):
                     'weight': request.data.get('weight'),
                     'password': request.data.get('password')
                 }
+                print(profile_data)
+                print(request.data)
                 profile_serializer = UserProfileSerializer(data=profile_data)
                 if profile_serializer.is_valid():
                     profile_serializer.save()
