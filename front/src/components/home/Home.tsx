@@ -1,6 +1,7 @@
 import Header from './components/Header.tsx'
 import {Routes, Route, useNavigate} from 'react-router-dom'
 import CreateWorkout from "./components/CreateWorkout.tsx";
+import WorkoutPlans from './components/WorkoutPlans.tsx'
 import HomeCSS from './home.module.css';
 import {useJwt} from "react-jwt";
 import refreshToken from "../../api/refreshToken.ts";
@@ -33,6 +34,7 @@ export function Home() {
         <Routes>
 
             <Route path={'/create-workout'} element={<CreateWorkout />}></Route>
+            <Route path={'/my-workouts'} element={<WorkoutPlans />}></Route>
             <Route path={'/'} element={<RandomQuotes />}></Route>
         </Routes>
 
