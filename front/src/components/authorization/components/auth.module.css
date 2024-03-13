@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
-    height: 70%;
+    height: fit-content;
     background-color: #d9d8d8;
     border-radius: 12px;
     font-family: 'Monsterrat', sans-serif;
@@ -31,7 +31,7 @@ form {
     padding: 30px;
     gap: 10px;
 
-    div {
+    & div {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -45,7 +45,7 @@ form {
 
     }
 
-    input {
+   & input {
         border: none;
         border-radius: 10px;
         outline: transparent;
@@ -57,8 +57,8 @@ form {
 
     }
 
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
+    & input[type=number]::-webkit-inner-spin-button,
+    & input[type=number]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
