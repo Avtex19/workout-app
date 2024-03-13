@@ -4,4 +4,5 @@ from .models import *
 admin.site.register(Workout)
 admin.site.register(Workout_category)
 admin.site.register(UserProfile)
+admin.site.register(Plan)
 

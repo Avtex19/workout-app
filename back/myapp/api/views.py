@@ -37,6 +37,7 @@ def getRoutes(request):
         '/api/show-workout-category',
         '/api/show-workout/<int:workout_type_id>',
         '/api/create/user',
+        '/api/plan'
 
     ]
 
@@ -66,6 +67,15 @@ class UserProfileAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class PlanViewSet(viewsets.ModelViewSet):
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
+    lookup_field = 'user_id'
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        if user_id:
+            return Plan.objects.filter(user_id=user_id)
+        else:
+            return Plan.objects.none()
