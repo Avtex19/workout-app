@@ -94,3 +94,4 @@ class PlanViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         # unfortunately dont have enought time(due to unifersity stuff) for fixing post request and create specified
         # workout plan, but the way is clear and we can see that
+        #superuser username is admin and password is admin123
